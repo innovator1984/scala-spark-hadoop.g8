@@ -13,7 +13,7 @@ hdfs://hadoop/project-MD2/jobs/daily-statistic/sharelib
       <configuration>
          <property>
             <name>oozie.launcher.mapred.job.queue.name</name>
-            <value>$${queue}</value>
+            <value>$dollar${queue}</value>
          </property>
       </configuration>
    </global>
@@ -22,25 +22,25 @@ hdfs://hadoop/project-MD2/jobs/daily-statistic/sharelib
 
    <action name="project-md2-daily-statistic">
       <spark xmlns="uri:oozie:spark-action:0.1">
-         <job-tracker>$${jobTracker}</job-tracker>
-         <name-node>$${nameNode}</name-node>
+         <job-tracker>$dollar${jobTracker}</job-tracker>
+         <name-node>$dollar${nameNode}</name-node>
          <master>yarn-client</master>
          <name>project-md2-daily-statistic</name>
          <class>ru.daily.Statistic</class>
-         <jar>$${nameNode}$${jobDir}/lib/daily-statistic-0.1.jar</jar>
+         <jar>$dollar${nameNode}$dollar${jobDir}/lib/daily-statistic-0.1.jar</jar>
          <spark-opts>
-            --queue $${queue}
+            --queue $dollar${queue}
             --master yarn-client
             --num-executors 5
             --conf spark.executor.cores=8
             --conf spark.executor.memory=10g
             --conf spark.executor.extraJavaOptions=-XX:+UseG1GC
             --conf spark.yarn.jars=*.jar
-            --conf spark.yarn.queue=$${queue}
+            --conf spark.yarn.queue=$dollar${queue}
          </spark-opts>
-         <arg>$${nameNode}$${dataDir}</arg>
-         <arg>$${datePartition}</arg>
-         <arg>$${nameNode}$${saveDir}</arg>
+         <arg>$dollar${nameNode}$dollar${dataDir}</arg>
+         <arg>$dollar${datePartition}</arg>
+         <arg>$dollar${nameNode}$dollar${saveDir}</arg>
        </spark>
 
        <ok to="end" />
@@ -49,7 +49,7 @@ hdfs://hadoop/project-MD2/jobs/daily-statistic/sharelib
    </action>
 
    <kill name="fail">
-      <message>Statistics job failed [$${wf:errorMessage(wf:lastErrorNode())}]</message>
+      <message>Statistics job failed [$dollar${wf:errorMessage(wf:lastErrorNode())}]</message>
    </kill>
 
    <end name="end" />
@@ -58,17 +58,17 @@ hdfs://hadoop/project-MD2/jobs/daily-statistic/sharelib
 В блоке global устанавливается очередь, для MapReduce задачи которая будет находить нашу задачи и запускать её.
 В блоке action описывается действие, в нашем случае запуск spark задачи, и что нужно делать при завершении со статусом ОК или ERROR.
 В блоке spark определяется окружение, конфигурируется задача и передаются аргументы. Конфигурация запуска задачи описывается в блоке spark-opts. Параметры можно посмотреть в официальной документации
-Если задача завершается со статусом ERROR, то выполнение переходит в блок kill и выводится кратное сообщение об ошибки. Параметры в фигурных скобках, например $${queue}, мы будем определять при запуске.
+Если задача завершается со статусом ERROR, то выполнение переходит в блок kill и выводится кратное сообщение об ошибки. Параметры в фигурных скобках, например $dollar${queue}, мы будем определять при запуске.
 Написание coordinator.xml
 Для организации регулярного запуска нам потребуется ещё coordinator.xml. Ниже приведу пример для нашей задачи:
-<coordinator-app name="project-md2-daily-statistic-coord" frequency="$${frequency}" start="$${startTime}" end="$${endTime}" timezone="UTC" xmlns="uri:oozie:coordinator:0.1">
+<coordinator-app name="project-md2-daily-statistic-coord" frequency="$dollar${frequency}" start="$dollar${startTime}" end="$dollar${endTime}" timezone="UTC" xmlns="uri:oozie:coordinator:0.1">
     <action>
         <workflow>
-            <app-path>$${workflowPath}</app-path>
+            <app-path>$dollar${workflowPath}</app-path>
             <configuration>
                 <property>
                     <name>datePartition</name>
-                    <value>$${coord:formatTime(coord:dateOffset(coord:nominalTime(), -1, 'DAY'), "yyyy/MM/dd")}</value>
+                    <value>$dollar${coord:formatTime(coord:dateOffset(coord:nominalTime(), -1, 'DAY'), "yyyy/MM/dd")}</value>
                 </property>
             </configuration>
         </workflow>

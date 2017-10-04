@@ -7,13 +7,13 @@ import org.apache.spark.sql.SparkSession
  * -XX:+UseG1GC -Xmx40g -Xms40g
  *
  *  # Set SPARK_MEM if it isn't already set since we also use it for this process
- * SPARK_MEM=$${SPARK_MEM:-512m}
+ * SPARK_MEM=$dollar${SPARK_MEM:-512m}
  * export SPARK_MEM
 
  * # Set JAVA_OPTS to be able to load native libraries and to set heap size
- * JAVA_OPTS="$$OUR_JAVA_OPTS"
- * JAVA_OPTS="$$JAVA_OPTS -Djava.library.path=$SPARK_LIBRARY_PATH"
- * JAVA_OPTS="$$JAVA_OPTS -Xms$$SPARK_MEM -Xmx$$SPARK_MEM"
+ * JAVA_OPTS="$dollar$OUR_JAVA_OPTS"
+ * JAVA_OPTS="$dollar$JAVA_OPTS -Djava.library.path=$SPARK_LIBRARY_PATH"
+ * JAVA_OPTS="$dollar$JAVA_OPTS -Xms$dollar$SPARK_MEM -Xmx$dollar$SPARK_MEM"
  */
 
 /*
