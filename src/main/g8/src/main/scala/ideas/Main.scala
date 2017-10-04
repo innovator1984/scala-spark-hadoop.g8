@@ -12,7 +12,7 @@ import org.apache.spark.sql.SparkSession
 
  * # Set JAVA_OPTS to be able to load native libraries and to set heap size
  * JAVA_OPTS="$dollar$OUR_JAVA_OPTS"
- * JAVA_OPTS="$dollar$JAVA_OPTS -Djava.library.path=$SPARK_LIBRARY_PATH"
+ * JAVA_OPTS="$dollar$JAVA_OPTS -Djava.library.path=$dollar$SPARK_LIBRARY_PATH"
  * JAVA_OPTS="$dollar$JAVA_OPTS -Xms$dollar$SPARK_MEM -Xmx$dollar$SPARK_MEM"
  */
 
