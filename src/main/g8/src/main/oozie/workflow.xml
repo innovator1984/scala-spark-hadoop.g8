@@ -18,7 +18,7 @@
          <master>yarn-client</master>
          <name>$jira_user$-$jira_task$-$jira_extra$</name>
          <class>ideas.Main</class>
-         <jar>$dollar${nameNode}$dollar${jobDir}/lib/$jira_user$-$jira_task$-$jira_extra$-$version$.jar</jar>
+         <jar>$dollar${nameNode}$dollar${jobDir}/lib/$name$-$version$.jar</jar>
          <!-- --driver-memory 4g --num-executors 10 --executor-cores 4 --executor-memory 30g -->
          <spark-opts>
             --queue $dollar${queue}

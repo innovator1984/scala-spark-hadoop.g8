@@ -24,11 +24,11 @@ HADOOP_CONF_DIR=$hadoop_home$ \
 $spark_home$/bin/spark-submit \ 
 --master yarn \ 
 --deploy-mode client \ 
---driver-java-options "-Dhive.metastore.uris=thrift://$hive_server$" \ 
+--driver-java-options "-Dhive.metastore.uris=thrift://$hive_metaserver$" \ 
 --queue $scheduler_queue$ \
 $yarn_optimization$ \
 --class "ideas.Main" \ 
-./$jira_user$_$jira_task$_protey_$jira_extra$-$version$.jar
+./$name$-$version$.jar
 */
 
 object Main extends Serializable {
