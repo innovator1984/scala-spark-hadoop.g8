@@ -28,6 +28,6 @@ object Main extends Serializable {
     // %spark
 
     // TODO: spark.sparkContext.stop
-    // success match { case Failure(e) => println("FAIL ... " + e.getMessage) case _ => }
+    // success match { case Failure(e) => throw e case _ => }
   }
 }
